@@ -799,6 +799,29 @@ blockquote {
   gap: 12px;
   justify-content: center;
 }
+.cta-band--konzultace .cta-inner p {
+  margin-bottom: 14px;
+}
+.cta-band--konzultace {
+  padding-top: clamp(6px, 1vw, 14px);
+  padding-bottom: clamp(12px, 2vw, 20px);
+}
+.cta-band--konzultace .cta-inner {
+  padding: clamp(22px, 3.2vw, 34px) clamp(22px, 3.5vw, 36px);
+}
+/* Konzultace — jeden flex řádek pro odkaz + tři tlačítka (na úzkém displeji se zalomí) */
+.cta-band--konzultace .cta-actions--konzultace-row {
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 12px;
+  column-gap: 12px;
+}
+section#konzultace.content-section {
+  padding-bottom: clamp(10px, 1.8vw, 18px);
+}
+section#konzultace.content-section--center > .quote-pull:last-child {
+  margin-bottom: 4px;
+}
 .cta-actions .btn-ghost:hover {
   background: rgba(255, 255, 255, 0.65);
 }
@@ -812,18 +835,24 @@ blockquote {
   margin-bottom: 0;
 }
 
-/* Buccal — minimální mezera mezi citátem a kartou CTA (přebije i padding .cta-band) */
-section.content-section.content-section--tight-cta:has(+ .cta-band) {
+/* Buccal — sekce #ucinky: stejný krok mezi odstavcem → citát → CTA (id + soused, bez :has) */
+#ucinky {
   padding-bottom: 0;
 }
-section.content-section--tight-cta.content-section--center:has(+ .cta-band) > .quote-pull:last-child {
-  margin-bottom: 0;
-  margin-top: clamp(24px, 4vw, 40px);
-  padding: 18px 24px 0;
+#ucinky > .quote-pull:last-child {
+  margin: 0;
+  padding: 8px 24px 0;
 }
-section.content-section--tight-cta.content-section--center:has(+ .cta-band) > .quote-pull:last-child::after {
-  margin-top: 6px;
-  margin-bottom: 0;
+#ucinky > .quote-pull:last-child::before {
+  margin: 0 auto 12px;
+}
+#ucinky > .quote-pull:last-child::after {
+  margin: 10px auto 0;
+}
+#ucinky + section.cta-band {
+  padding-top: 0;
+  margin-top: 20px;
+  padding-bottom: clamp(18px, 3vw, 32px);
 }
 
 /* CTA pod obsahem — jen mírně menší horní padding než výchozí .cta-band (bez přetahování přes text) */
@@ -833,10 +862,6 @@ section.content-section--tight-cta.content-section--center:has(+ .cta-band) > .q
 .voucher-strip + .cta-band {
   margin-top: 0;
   padding-top: clamp(10px, 1.6vw, 18px);
-}
-section.content-section.content-section--tight-cta + section.cta-band {
-  padding-top: 0;
-  padding-bottom: clamp(18px, 3vw, 32px);
 }
 /* Metoda RUŠ — .cta-soft pod poslední .section-rus */
 .section-rus + .cta-soft {
@@ -1124,6 +1149,12 @@ section.content-section.content-section--tight-cta + section.cta-band {
   color: var(--ink);
   border-left: 2px solid var(--accent);
   padding: 8px 0 8px 28px;
+  margin: 48px 0;
+}
+/* Toto pravidlo je až za předchozím — jinak by znovu zapnulo levý pruh u vystředěných citátů (Buccal, Konzultace…) */
+.content-section.content-section--center > .quote-pull {
+  border-left: none;
+  padding: 24px 24px;
   margin: 48px 0;
 }
 .content-section .quote-pull .quote-pull__kicker {
@@ -2338,6 +2369,11 @@ section.content-section.content-section--tight-cta + section.cta-band {
   margin: 0;
   max-width: 38ch;
   line-height: 1.65;
+}
+.cta-soft__official {
+  margin: 18px 0 0;
+  max-width: 38ch;
+  font-size: 0.92rem;
 }
 .cta-soft__actions {
   display: flex;
