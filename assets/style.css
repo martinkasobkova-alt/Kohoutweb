@@ -2393,13 +2393,17 @@ section#konzultace.content-section--center > .quote-pull:last-child {
 
 /* ----- HERO RUS — RESPONSIVE ----- */
 @media (max-width: 960px) {
-  .hero-rus { grid-template-columns: 1fr; gap: 48px; padding-bottom: 40px; }
-  /* Jako úvodní stránka (.hero-visual-stack): fotka první pod hlavičkou */
+  .hero-rus { grid-template-columns: 1fr; gap: 32px; padding-bottom: 40px; }
+  /* Jako úvodní stránka (.hero-visual-stack): fotka první, kompaktní výška */
   .hero-rus__visual {
     order: -1;
-    max-width: 520px;
+    max-width: min(360px, 100%);
     margin: 0 auto;
     width: 100%;
+  }
+  .hero-rus__visual-frame {
+    aspect-ratio: 16 / 10;
+    max-height: 340px;
   }
   .hero-rus__visual::before { right: -10px; bottom: -10px; }
 }
@@ -2410,7 +2414,6 @@ section#konzultace.content-section--center > .quote-pull:last-child {
   .hero-rus__actions .btn-link-premium { width: 100%; justify-content: center; padding-left: 18px; padding-right: 18px; }
   .hero-rus__trust { gap: 12px 14px; padding-top: 24px; }
   .hero-rus__trust-divider { display: none; }
-  .hero-rus__visual-frame { aspect-ratio: 4 / 5; }
   .hero-rus__badge { font-size: 0.95rem; padding: 14px 16px; gap: 12px; }
   .hero-rus__badge-mark { width: 36px; height: 36px; font-size: 0.8rem; }
 
