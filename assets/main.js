@@ -91,10 +91,29 @@ onScroll();
 // Mobile nav toggle
 const navToggle = document.getElementById('navToggle');
 const mainNav = document.getElementById('mainNav');
+function setNavOpen(open) {
+  if (!navToggle || !mainNav) return;
+  navToggle.classList.toggle('open', open);
+  mainNav.classList.toggle('open', open);
+  navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
 if (navToggle && mainNav) {
-  navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('open');
-    mainNav.classList.toggle('open');
+  navToggle.setAttribute('type', 'button');
+  navToggle.setAttribute('aria-expanded', 'false');
+  navToggle.setAttribute('aria-controls', mainNav.id);
+  navToggle.addEventListener('click', (e) => {
+    e.preventDefault();
+    const next = !mainNav.classList.contains('open');
+    setNavOpen(next);
+  });
+  mainNav.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => setNavOpen(false));
+  });
+  document.addEventListener('click', (e) => {
+    if (!mainNav.classList.contains('open')) return;
+    const t = e.target;
+    if (navToggle.contains(t) || mainNav.contains(t)) return;
+    setNavOpen(false);
   });
 }
 
