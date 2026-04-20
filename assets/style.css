@@ -994,7 +994,11 @@ section#konzultace.content-section--center > .quote-pull:last-child {
 }
 @media (max-width: 900px) {
   .page-hero-split { grid-template-columns: 1fr; gap: 40px; }
-  .page-hero-split .hero-img-wrap { aspect-ratio: 16/10; max-height: 400px; }
+  .page-hero-split .hero-img-wrap {
+    order: -1;
+    aspect-ratio: 16/10;
+    max-height: 400px;
+  }
 }
 
 .content-section {
@@ -2390,7 +2394,13 @@ section#konzultace.content-section--center > .quote-pull:last-child {
 /* ----- HERO RUS — RESPONSIVE ----- */
 @media (max-width: 960px) {
   .hero-rus { grid-template-columns: 1fr; gap: 48px; padding-bottom: 40px; }
-  .hero-rus__visual { max-width: 520px; margin: 0 auto; width: 100%; }
+  /* Jako úvodní stránka (.hero-visual-stack): fotka první pod hlavičkou */
+  .hero-rus__visual {
+    order: -1;
+    max-width: 520px;
+    margin: 0 auto;
+    width: 100%;
+  }
   .hero-rus__visual::before { right: -10px; bottom: -10px; }
 }
 @media (max-width: 720px) {
