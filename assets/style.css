@@ -2654,12 +2654,25 @@ details.more-toggle.more-toggle-center > .more-content > ul.checkmarks {
     padding: 24px;
     gap: 18px;
     border-top: 1px solid var(--line);
-    align-items: stretch;
+    align-items: flex-start;
     box-shadow: 0 16px 40px -24px rgba(31, 36, 32, 0.35);
   }
   .main-nav.open { display: flex; }
   .main-nav.open a:not(.nav-cta) { display: block; }
-  .main-nav a { padding: 4px 0; }
+  .main-nav a:not(.nav-cta) { padding: 4px 0; }
+  .main-nav .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    margin-top: 10px;
+    padding: 12px 26px;
+    width: auto;
+    min-width: 0;
+    max-width: calc(100% - 8px);
+    text-align: center;
+    white-space: nowrap;
+  }
   .nav-toggle {
     display: flex;
     position: relative;
