@@ -46,37 +46,46 @@
     </div>
   </header>
 
-  <main>
-    <section class="page-hero page-hero--has-visual">
-      <div class="section-eyebrow reveal">— Psychoterapie</div>
-      <h1 class="reveal">
-        Terapie<br />
-        <span class="serif-italic">Metodou RUŠ</span>
-      </h1>
-      <p class="lead lead--sub reveal">Najdeme příčinu, ne jen symptom — a šetrně ji uvolníme.</p>
-      <p class="lead reveal">Hluboká psychoterapeutická metoda, která vás krok po kroku přivede k pochopení, odpuštění a osvobození od starých vzorců. Bez léků, bez hypnózy, plně při vědomí.</p>
-      <div class="page-hero__visual feature-visual reveal">
-        <img src="https://2e7ae127dc.clvaw-cdnwnd.com/8b7f1cb16bb3a421f5046f3509f56152/200000098-44b5e44b61/Rock-Stack-Sand.jpg?ph=2e7ae127dc" alt="Vyvážené kameny — symbol vnitřní rovnováhy po terapii Metodou RUŠ" loading="lazy" />
-        <div class="hero-rus__badge">
-          <span class="hero-rus__badge-mark" aria-hidden="true">RUŠ</span>
-          <span>Vše je jednodušší, <em>než si myslíte</em>.</span>
+  <main id="page-metoda-rus">
+    <section class="hero">
+      <div class="hero-inner hero-inner--visual-tall">
+        <div class="hero-text">
+          <div class="hero-heading-block">
+            <div class="hero-eyebrow reveal">— Psychoterapie</div>
+            <h1 class="hero-title reveal">
+              Terapie<br />
+              <span class="serif-italic">Metodou RUŠ</span>
+            </h1>
+          </div>
+          <div class="hero-meta reveal">
+            <span>Najdeme příčinu, ne jen symptom — a šetrně ji uvolníme.</span>
+          </div>
+          <div class="hero-lead-wrap">
+            <p class="hero-lead reveal">
+              Hluboká psychoterapeutická metoda, která vás krok po kroku přivede k pochopení, odpuštění a osvobození od starých vzorců. Bez léků, bez hypnózy, plně při vědomí.
+            </p>
+            <p class="hero-lead reveal">
+              <strong>Objednejte se na terapii.</strong> První krok je jednoduchý — napište, zavolejte nebo vyberte termín online.
+            </p>
+          </div>
+        </div>
+        <div class="hero-visual-stack reveal">
+          <div class="hero-visual hero-visual--portrait hero-visual--landscape-cover">
+            <img src="https://2e7ae127dc.clvaw-cdnwnd.com/8b7f1cb16bb3a421f5046f3509f56152/200000098-44b5e44b61/Rock-Stack-Sand.jpg?ph=2e7ae127dc" alt="Vyvážené kameny — symbol vnitřní rovnováhy po terapii Metodou RUŠ" loading="lazy" decoding="async" />
+            <div class="hero-rus__badge">
+              <span class="hero-rus__badge-mark" aria-hidden="true">RUŠ</span>
+              <span>Vše je jednodušší, <em>než si myslíte</em>.</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-cta-row">
+          <div class="hero-actions hero-actions--hero-row reveal">
+            <a href="#" data-action="book" class="btn btn-primary">Objednat se ↗</a>
+            <a href="#jak-probiha" class="btn btn-ghost">Jak terapie probíhá ↓</a>
+          </div>
         </div>
       </div>
     </section>
-
-    <div class="feature-block feature-block--cta-only reveal">
-      <div class="feature-block__copy">
-        <div class="feature-tags">1000+ hodin praxe · Certifikováno od 2019 · Plně při vědomí</div>
-        <h3>Objednejte se na terapii</h3>
-        <p>První krok je jednoduchý — napište, zavolejte nebo vyberte termín online.</p>
-      </div>
-      <div class="feature-block__actions">
-        <div class="hero-rus__actions reveal">
-          <a href="#" data-action="book" class="btn-premium">Objednat se ↗</a>
-          <a href="#jak-probiha" class="btn-link-premium">Jak terapie probíhá</a>
-        </div>
-      </div>
-    </div>
 
     <!-- TRUST STAT =============================================== -->
     <section class="stat-highlight reveal" aria-label="Praxe">
@@ -308,9 +317,13 @@
     .testimonial-card--hidden {
       display: none;
     }
-    .process-steps.is-expanded .process-step--hidden,
+    /* Stejné rozložení jako .process-step (grid), ne flex — jinak se text posune k číslu */
+    .process-steps.is-expanded .process-step--hidden {
+      display: grid;
+      animation: fade-in-up 0.5s ease both;
+    }
     .testimonials.is-expanded .testimonial-card--hidden {
-      display: flex;
+      display: block;
       animation: fade-in-up 0.5s ease both;
     }
     /* Zachovat stejné grid rozložení jako u viditelných řádků (::before číslo + text). */
