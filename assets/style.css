@@ -26,7 +26,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  /* Bez overflow-x na <html> — kombinace s body často v Chromium vytvoří druhý svislý posuvník */
   max-width: 100%;
   overscroll-behavior-x: none;
 }
@@ -38,14 +38,14 @@ body {
   line-height: 1.65;
   color: var(--ink);
   background: var(--bg);
-  overflow-x: hidden;
+  /* hidden + výchozí visible na y vede specifikací k overflow-y: auto = druhý posuvník */
+  overflow-x: clip;
   max-width: 100%;
   position: relative;
   overscroll-behavior-x: none;
 }
-/* Zabrání horizontálnímu „posunu“ stránky (Safari / široké dekorace) */
+/* Horizontál řeší body; main bez overflow-x — jinak by vznikl druhý scroll kontejner */
 main {
-  overflow-x: hidden;
   max-width: 100%;
 }
 img, svg { max-width: 100%; display: block; }
@@ -247,7 +247,7 @@ h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.14em; font
   /* Spodní „vzduch“ řeší .section-divider--after-hero — stejná mezera nad i pod ◆ */
   padding: var(--page-top-pad) 36px 0;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 .hero::before {
   content: "";
@@ -280,14 +280,26 @@ h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.14em; font
   grid-column: 1;
   grid-row: 1;
   align-self: start;
+  display: flex;
+  flex-direction: column;
+  /* Stejný krok mezi blokem titulku, „Uzdravit se…“ a odstavcem */
+  gap: clamp(20px, 2.2vw, 28px);
+}
+.hero-heading-block,
+.hero-lead-wrap {
+  min-width: 0;
+}
+.hero-text > .hero-meta {
+  margin-bottom: 0;
 }
 .hero-visual-stack {
   grid-column: 2;
   grid-row: 1;
-  width: min(300px, 32vw);
+  width: min(332px, 34vw);
   max-width: 100%;
   justify-self: start;
-  align-self: stretch;
+  /* start = výška jen podle fotky; stretch by roztáhl ::before pod celý textový sloupec */
+  align-self: start;
   display: flex;
   flex-direction: column;
   gap: 0;
@@ -295,15 +307,15 @@ h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.14em; font
   position: relative;
   isolation: isolate;
 }
-/* Jako .hero-rus__visual::before — teplý „posunutý“ podklad za fotkou */
+/* Tenký rámeček za fotkou (stejná logika jako hero-rus, bez „kilometru“ pod snímkem) */
 .hero-visual-stack::before {
   content: "";
   position: absolute;
   z-index: 0;
-  top: 20px;
-  left: 20px;
-  right: -12px;
-  bottom: -12px;
+  top: 10px;
+  left: 10px;
+  right: -8px;
+  bottom: -8px;
   background: var(--bg-alt);
   border-radius: var(--radius-lg);
   pointer-events: none;
@@ -311,12 +323,12 @@ h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.14em; font
 .hero-visual {
   position: relative;
   z-index: 1;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   min-height: 0;
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--bg-alt);
-  box-shadow: 0 30px 80px -30px rgba(31, 36, 32, 0.28);
+  box-shadow: 0 12px 36px -12px rgba(31, 36, 32, 0.18), 0 4px 12px -4px rgba(31, 36, 32, 0.08);
 }
 /* Řádek CTA: tlačítka pod textem, badge pod fotkou — společná výška řádku */
 .hero-cta-row {
@@ -339,6 +351,15 @@ h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.14em; font
   inset: 0;
   background: linear-gradient(180deg, transparent 60%, rgba(31, 36, 32, 0.15));
   pointer-events: none;
+}
+/* Portrétní fotka v praxi (homepage) — desktop: o fous větší, aby spodek líp seděl k textu */
+.hero-visual--portrait {
+  aspect-ratio: 3 / 4;
+  max-height: min(518px, 76vh);
+  flex: 0 0 auto;
+}
+.hero-visual--portrait img {
+  object-position: center 20%;
 }
 /* Badge v řádku s tlačítky — stejné paddingy jako .btn, výraznější než „ghost“ */
 .hero-badge {
@@ -409,13 +430,14 @@ h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.14em; font
 }
 .hero-title {
   max-width: 16ch;
-  margin-bottom: 40px;
+  margin-bottom: 0;
 }
 .hero-lead {
   max-width: 540px;
   font-size: clamp(1.05rem, 1.6vw, 1.22rem);
   line-height: 1.6;
   color: var(--ink-soft);
+  margin-top: 0;
   margin-bottom: 32px;
 }
 .hero-meta {
@@ -893,7 +915,7 @@ section#konzultace.content-section--center > .quote-pull:last-child {
   background: var(--bg);
   padding: 80px 0 32px;
   border-top: 1px solid var(--line);
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
 }
 .footer-inner {
@@ -1872,7 +1894,7 @@ section#konzultace.content-section--center > .quote-pull:last-child {
   gap: clamp(48px, 6vw, 96px);
   align-items: center;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 .hero-rus::before {
   content: "";
@@ -2587,13 +2609,38 @@ details.more-toggle.more-toggle-center > .more-content > ul.checkmarks {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 32px;
+    /* Jedna mezera mezi bloky — nepřičítat k velkým marginům u titulku/lead */
+    gap: 16px;
   }
+  .hero .hero-eyebrow {
+    margin-bottom: 12px;
+  }
+  .hero .hero-title {
+    margin-bottom: 0;
+  }
+  .hero .hero-text > .hero-meta {
+    margin-bottom: 0;
+  }
+  .hero .hero-lead {
+    margin-bottom: 0;
+  }
+  /* Mobilní sloupec: titulek → Uzdravit se… → odstavec → fotka → CTA */
   .hero-text {
+    display: contents;
     grid-column: unset;
     grid-row: unset;
   }
+  .hero-heading-block {
+    order: 0;
+  }
+  .hero-text > .hero-meta {
+    order: 1;
+  }
+  .hero-lead-wrap {
+    order: 2;
+  }
   .hero-visual-stack {
+    order: 3;
     grid-column: unset;
     grid-row: unset;
     width: 100%;
@@ -2602,22 +2649,27 @@ details.more-toggle.more-toggle-center > .more-content > ul.checkmarks {
     margin-left: auto;
     margin-right: auto;
   }
-  .hero-visual {
-    flex: 0 0 auto;
-    aspect-ratio: 16 / 10;
-    max-height: 340px;
-    width: 100%;
-  }
-  .hero-visual img {
-    height: 100%;
-  }
   .hero-cta-row {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 14px;
     width: 100%;
-    order: 1;
+    order: 4;
+  }
+  .hero-visual {
+    flex: 0 0 auto;
+    aspect-ratio: 16 / 10;
+    max-height: 340px;
+    width: 100%;
+  }
+  .hero-visual.hero-visual--portrait {
+    aspect-ratio: 3 / 4;
+    max-height: min(400px, 58vh);
+    width: 100%;
+  }
+  .hero-visual img {
+    height: 100%;
   }
   .hero-actions--hero-row,
   .hero-badge--hero-row {
@@ -2625,7 +2677,6 @@ details.more-toggle.more-toggle-center > .more-content > ul.checkmarks {
     grid-row: unset;
     align-self: stretch;
   }
-  .hero-meta { margin-bottom: 0; }
 }
 @media (max-width: 900px) {
   .footer-inner { grid-template-columns: repeat(2, 1fr); }
