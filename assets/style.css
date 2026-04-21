@@ -594,7 +594,7 @@ section { position: relative; }
 .section-eyebrow { margin-bottom: 16px; display: block; }
 .page-hero .section-eyebrow {
   text-align: center;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 .hero-rus__eyebrow {
   display: block;
@@ -992,15 +992,90 @@ section#konzultace.content-section--center > .quote-pull:last-child {
 }
 .page-hero h1 {
   font-size: clamp(2.5rem, 6vw, 4.5rem);
-  margin: 0 auto 20px;
+  margin: 0 auto 10px;
   max-width: 18ch;
+  line-height: 1.08;
 }
 .page-hero .lead {
   max-width: 620px;
   margin: 0 auto;
   font-size: clamp(1.05rem, 1.6vw, 1.2rem);
   color: var(--ink-soft);
-  line-height: 1.65;
+  line-height: 1.6;
+}
+/* První odstavec pod nadpisem — těsnější k h1 (často „kurzívový“ podtitulek) */
+.page-hero h1 + .lead {
+  margin-top: 0;
+}
+.page-hero .lead + .lead {
+  margin-top: clamp(6px, 1.2vw, 12px);
+}
+/* Zvýrazněný první lead jako dřív hero-rus__sub — sjednocuje typografii a mezery */
+.page-hero .lead--sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.15rem, 1.9vw, 1.45rem);
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin-top: 2px;
+  margin-bottom: 0;
+}
+.page-hero .lead--sub + .lead {
+  margin-top: clamp(6px, 1.2vw, 12px);
+}
+.page-hero .lead + .page-hero-pullquote,
+.page-hero .lead + .page-hero-foot {
+  margin-top: clamp(8px, 1.5vw, 14px);
+}
+.page-hero-foot {
+  margin-left: auto;
+  margin-right: auto;
+}
+.page-hero--home .home-hero-meta {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.12rem, 2.1vw, 1.38rem);
+  line-height: 1.45;
+  color: var(--ink-soft);
+  margin: 4px auto 10px;
+  max-width: 36ch;
+}
+.page-hero--home h1 + .home-hero-meta {
+  margin-top: 0;
+}
+.page-hero--home .home-hero-meta + .lead {
+  margin-top: 0;
+}
+/* Hlavní fotka úvodu — vždy až za titulkem, kurzívou a běžným textem (stejné pořadí v DOM = mobil i desktop) */
+.page-hero .page-hero__visual.feature-visual {
+  margin: clamp(18px, 3.5vw, 32px) auto 0;
+  width: 100%;
+  max-width: min(400px, 100%);
+  aspect-ratio: 5 / 4;
+  max-height: 360px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-alt);
+  position: relative;
+}
+.page-hero .page-hero__visual.feature-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.page-hero .page-hero__visual .hero-rus__badge {
+  z-index: 2;
+}
+.page-hero--home .page-hero__visual.feature-visual--home-portrait {
+  aspect-ratio: 3 / 4;
+  max-height: min(518px, 76vh);
+  max-width: min(340px, 92vw);
+}
+.page-hero--home .page-hero__visual.feature-visual--home-portrait img {
+  object-position: center 20%;
 }
 
 /* Page hero with image (split layout) */
@@ -1015,8 +1090,9 @@ section#konzultace.content-section--center > .quote-pull:last-child {
 }
 .page-hero-split h1 {
   font-size: clamp(2.4rem, 5.5vw, 4rem);
-  margin: 0 0 24px;
+  margin: 0 0 10px;
   max-width: 14ch;
+  line-height: 1.08;
 }
 .page-hero-split .lead {
   font-size: clamp(1.05rem, 1.4vw, 1.15rem);
@@ -1037,6 +1113,9 @@ section#konzultace.content-section--center > .quote-pull:last-child {
 }
 @media (max-width: 900px) {
   .page-hero-split { grid-template-columns: 1fr; gap: 40px; }
+  /* Text vždy nad fotkou (i když je v HTML obrázek první) */
+  .page-hero-split .hero-img-wrap { order: 2; }
+  .page-hero-split > *:not(.hero-img-wrap) { order: 1; }
   .page-hero-split .hero-img-wrap {
     aspect-ratio: 16/10;
     max-height: 400px;
@@ -1330,6 +1409,15 @@ section#konzultace.content-section--center > .quote-pull:last-child {
 }
 .feature-block.reverse { direction: rtl; }
 .feature-block.reverse > * { direction: ltr; }
+/* Jen text + CTA pod úvodní fotkou v page-hero */
+.feature-block--cta-only {
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: clamp(24px, 4vw, 40px);
+}
+.feature-block--single-col {
+  grid-template-columns: 1fr;
+}
 .feature-block .feature-visual {
   aspect-ratio: 5 / 4;
   max-height: 360px;
@@ -1364,6 +1452,54 @@ section#konzultace.content-section--center > .quote-pull:last-child {
   font-weight: 500;
 }
 .feature-block p { color: var(--ink-soft); margin: 0 0 16px; }
+.feature-block .hero-rus__actions {
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+.feature-block .feature-visual .hero-rus__badge {
+  z-index: 2;
+}
+/* Úvod domů — stejný vzor jako Masáže (page-hero + první feature-block) */
+.feature-block--home-hero {
+  margin-top: 0;
+}
+.feature-block--home-hero .home-hero-badge {
+  margin: 20px 0 0;
+  padding: 16px 28px;
+  border-radius: 100px;
+  border: 2px solid var(--ink);
+  background: var(--bg);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.3;
+  box-shadow: 0 8px 28px -12px rgba(31, 36, 32, 0.22);
+}
+.feature-block--home-hero .home-hero-badge::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--ink);
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+  transform: translateY(-1px);
+}
+@media (max-width: 900px) {
+  .feature-block--home-hero .hero-actions {
+    justify-content: center;
+  }
+  .feature-block--home-hero .home-hero-badge {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    max-width: 100%;
+  }
+}
 
 /* Content image (inside content-section) */
 .content-image {
@@ -1718,9 +1854,11 @@ section#konzultace.content-section--center > .quote-pull:last-child {
     padding: 24px;
     text-align: center;
   }
-  .voucher-strip__image { max-width: 220px; margin: 0 auto; }
+  /* Mobil: nejdřív text, pak obrázek poukazu, nakonec CTA */
+  .voucher-strip__content { order: 1; }
+  .voucher-strip__image { order: 2; max-width: 220px; margin: 0 auto; }
+  .voucher-strip__cta { order: 3; align-items: center; text-align: center; }
   .voucher-strip__text { margin: 0 auto; }
-  .voucher-strip__cta { align-items: center; text-align: center; }
 }
 @media (max-width: 720px) {
   .voucher-strip { padding: 0 20px; }
@@ -2435,14 +2573,29 @@ section#konzultace.content-section--center > .quote-pull:last-child {
 }
 
 /* ----- HERO RUS — RESPONSIVE ----- */
-@media (max-width: 960px) {
-  .hero-rus { grid-template-columns: 1fr; gap: 32px; padding-bottom: 40px; }
-  /* Mobil: titulek a text nahoře, fotka až pod hlavním blokem */
+@media (max-width: 900px) {
+  .hero-rus {
+    grid-template-columns: 1fr;
+    gap: clamp(20px, 4vw, 28px);
+    padding-bottom: 40px;
+  }
+  /* „Rozbalíme“ textový wrapper, aby šlo fotku zařadit mezi lead a CTA (jako na úvodní stránce) */
+  .hero-rus__text { display: contents; }
+  .hero-rus__eyebrow { order: 1; }
+  .hero-rus__title { order: 2; }
+  .hero-rus__sub { order: 3; }
+  .hero-rus__lead { order: 4; margin-bottom: 0; }
   .hero-rus__visual {
+    order: 5;
     max-width: min(360px, 100%);
     margin: 0 auto;
     width: 100%;
   }
+  .hero-rus__actions {
+    order: 6;
+    margin-bottom: 0;
+  }
+  .hero-rus__trust { order: 7; }
   .hero-rus__visual-frame {
     aspect-ratio: 16 / 10;
     max-height: 340px;
@@ -2604,7 +2757,7 @@ details.more-toggle.more-toggle-center > .more-content > ul.checkmarks {
   .main-nav a:not(.nav-cta) { display: none; }
   .main-nav { gap: 0; }
 }
-@media (max-width: 960px) {
+@media (max-width: 900px) {
   .hero-inner {
     display: flex;
     flex-direction: column;
@@ -2686,6 +2839,41 @@ details.more-toggle.more-toggle-center > .more-content > ul.checkmarks {
   .about-grid, .contact-grid, .voucher-hero { grid-template-columns: 1fr; gap: 48px; }
   .feature-block { grid-template-columns: 1fr; gap: 32px; }
   .feature-block.reverse { direction: ltr; }
+  /* Feature bloky s fotkou — na mobilu vycentrovat */
+  .feature-block .feature-visual {
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: min(360px, 100%);
+  }
+  /* Úvodní fotka v page-hero — vycentrovat */
+  .page-hero .page-hero__visual.feature-visual {
+    justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* Ostatní feature bloky (Masáže…): text nad fotkou */
+  .feature-block > div:not(.feature-visual) {
+    order: 1;
+  }
+  .feature-block .feature-visual {
+    order: 2;
+  }
+  .feature-block--cta-only > .feature-block__copy,
+  .feature-block--cta-only > .feature-block__actions {
+    order: unset;
+  }
+  .content-image {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: min(480px, 100%);
+  }
+  .banner-image .banner-img-wrap {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: min(720px, 100%);
+  }
 }
 @media (max-width: 720px) {
   .nav-wrap { padding: 16px 20px; }
