@@ -279,6 +279,18 @@ h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.14em; font
   justify-content: start;
   width: 100%;
 }
+/* Celá split-hero (text + fotka + CTA) v jednom rámu */
+.hero-inner.hero-inner--boxed {
+  box-sizing: border-box;
+  padding: clamp(28px, 3.5vw, 44px) clamp(28px, 3.5vw, 40px);
+  background: linear-gradient(160deg, var(--bg) 0%, var(--bg-alt) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 36px -22px rgba(31, 36, 32, 0.16);
+}
+.hero-inner.hero-inner--boxed .hero-lead {
+  max-width: none;
+}
 .hero-text {
   min-width: 0;
   grid-column: 1;
@@ -1042,25 +1054,12 @@ section#konzultace.content-section--center > .quote-pull:last-child {
   padding-bottom: clamp(18px, 3vw, 32px);
 }
 
-/* Masáže — úvod a textové sloupce ve stejném „rámu“ jako O mně / Konzultace */
-#page-masaze .page-hero .about-story-card--masaze-hero {
-  max-width: 720px;
-  margin: clamp(12px, 2vw, 20px) auto 0;
-  padding: clamp(28px, 3.2vw, 40px) clamp(26px, 3vw, 38px);
-  text-align: center;
-  background: linear-gradient(160deg, var(--bg) 0%, var(--bg-alt) 100%);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 10px 36px -22px rgba(31, 36, 32, 0.16);
-}
-#page-masaze .page-hero .about-story-card--masaze-hero .lead {
-  max-width: none;
-}
-#page-masaze .page-hero .about-story-card--masaze-hero .lead--sub {
+/* Masáže — zvýrazněný první lead v hero boxu */
+#page-masaze .page-hero--boxed .lead--sub {
   margin-top: 0;
   color: var(--accent);
 }
-#page-masaze .page-hero .about-story-card--masaze-hero .lead + .lead {
+#page-masaze .page-hero--boxed .lead + .lead {
   margin-top: clamp(10px, 1.5vw, 16px);
 }
 #page-masaze .feature-block > div:not(.feature-visual) {
@@ -1109,7 +1108,6 @@ section#konzultace.content-section--center > .quote-pull:last-child {
   color: var(--ink);
 }
 
-/* Metoda RUŠ — boxy pod hero (hero zůstává jako na ostatních podstránkách) */
 #page-metoda-rus .stat-highlight__inner {
   background: linear-gradient(160deg, var(--bg) 0%, var(--bg-alt) 100%);
   border: 1px solid var(--line);
@@ -1318,6 +1316,31 @@ section#konzultace.content-section--center > .quote-pull:last-child {
 .page-hero-foot {
   margin-left: auto;
   margin-right: auto;
+}
+/* Jednoduchý page-hero — celá sekce jako jeden box (přebije výchozí padding) */
+.page-hero.page-hero--boxed {
+  box-sizing: border-box;
+  padding: var(--page-top-pad) clamp(26px, 3vw, 36px) clamp(32px, 4.5vw, 52px);
+  background: linear-gradient(160deg, var(--bg) 0%, var(--bg-alt) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 36px -22px rgba(31, 36, 32, 0.16);
+}
+.page-hero.page-hero--boxed .section-eyebrow {
+  margin-bottom: 10px;
+}
+.page-hero.page-hero--boxed h1 {
+  margin-left: auto;
+  margin-right: auto;
+}
+.page-hero.page-hero--boxed .lead {
+  max-width: 52ch;
+}
+.page-hero.page-hero--boxed .page-hero-foot {
+  margin-top: clamp(10px, 1.5vw, 16px);
+}
+.page-hero.page-hero--boxed:has(+ .section-divider--after-hero) {
+  padding-bottom: clamp(10px, 1.8vw, 22px);
 }
 .page-hero--home .home-hero-meta {
   font-family: 'Cormorant Garamond', serif;
@@ -3279,6 +3302,9 @@ details.more-toggle.more-toggle-center > .more-content > ul.checkmarks {
 
   .hero { padding: var(--page-top-pad) 0 0; }
   .hero-inner { padding-left: 20px; padding-right: 20px; }
+  .hero-inner.hero-inner--boxed {
+    padding: clamp(22px, 4vw, 32px) 20px;
+  }
   .hero-actions { flex-direction: column; align-items: stretch; }
   .hero-actions .btn { justify-content: center; }
   .banner-new {
