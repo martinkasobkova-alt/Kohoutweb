@@ -1,0 +1,5 @@
+# Náhodné / lokální soubory (nepatří do repa)
+*.exe
+*.winmd
+.DS_Store
+Thumbs.db
